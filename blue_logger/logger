@@ -3,14 +3,20 @@ cd /home/pi
 mkdir -p log
 cd log
 
+# including nanoseconds in the filename makes it unique for this connection
 TOKEN=`date -Ins`
 exec </dev/rfcomm0 >>$TOKEN
 
+# ISO timestamp with milliseconds and without timezone
 function DATE() {
   d=`date "+%Y-%m-%dT%H:%M:%S.%N"`
+  # strip off last six digits
   echo ${d%??????}
 }
 
+# Since opening the rfcomm0 device, we have a controlling terminal and thus
+# need to protect against its evil signals; this program shall run until the
+# serial connection is closed.
 function sig() {
   echo `DATE` "got signal" "$@"
 }
@@ -18,10 +24,13 @@ for s in `trap -l | perl -ne 's/\d+\)//g;for(split){print "$_\n"}'`; do
   trap "sig $s" $s
 done
 
+# without the stdout redirection weird things happen ...
 stty 115200 >&0
 
 echo `DATE` "*** NEW CONNECTION ***"
 
+# this makes it line buffered, which is fine for most things; unbuffered would
+# require writing it in a different language
 while read line; do
   echo `DATE` "< $line"
 done
