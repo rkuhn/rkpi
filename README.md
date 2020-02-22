@@ -1,4 +1,4 @@
-# RKpi
+# RKπ
 
 This is my collection of things for using [Raspberry
 Pi](https://www.raspberrypi.org/).
