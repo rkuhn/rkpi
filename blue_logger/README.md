@@ -12,6 +12,8 @@ some preparation:
   `/etc/machine-info`
 - reboot
 
+_(all apart from the last step are done by `install.sh`)_
+
 Now, whenever a serial connection comes in over bluetooth, the logger will be
 started and place a file in `/home/pi/log` to capture the logs. You may test
 this by connecting to the pi from your computer and using the new serial device
