@@ -18,6 +18,8 @@ for s in `trap -l | perl -ne 's/\d+\)//g;for(split){print "$_\n"}'`; do
   trap "sig $s" $s
 done
 
+stty 115200 >&0
+
 echo `DATE` "*** NEW CONNECTION ***"
 
 while read line; do
