@@ -1,3 +1,5 @@
 lsof
 git
 vim
+dnsutils
+echo jq
