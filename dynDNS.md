@@ -1,5 +1,16 @@
 # Adding your own dynDNS
 
+It is tremendously useful to be able to access your π from anywhere on the internet, and IPv6 makes
+this quite easy.
+
+One caveat: your (home) router’s firewall will want to permit only specific IPv6 traffic for your π,
+which means that your π will want to have a stable IP address. Since we are talking about a dynamic
+environment (else there would be no reason for dynDNS), each time the prefix changes the default
+configuration of raspbian will also generate a new address for the lower 64 bits of the IP; this
+needs to be disabled by setting `slaac hwaddr` in `/etc/dhcpcd.conf`.
+
+## Server side
+
 Hosting your own dynDNS is easy with Bind9. Create a zone like this:
 
 ```
@@ -38,6 +49,8 @@ ddns-confgen -s my-rpi.dyn.example.com
 ```
 
 This will give you the key file to add to your π as well as the section to place in `/etc/named/named.conf.local` and also the line you need to add to the zone’s update-policy to grant the necessary rights. After the customary `rndc reload` we are done on the server side.
+
+## Client side
 
 Assuming that the keyfile on the π is `/root/ddns.key`, we create the following script in `/root/bin/update_dns.sh`:
 
