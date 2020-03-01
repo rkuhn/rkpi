@@ -126,4 +126,4 @@ Mar  1 17:41:31 rpi2 kernel: [    7.815164] sd 0:0:0:0: [sda] Attached SCSI disk
 ```
 
 Note how the quirk matches and thus UAS is disabled. I’m awaiting another USB3–SATA bridge, hopefully with
-the ASM1153 chipset which is reported to work well with Linux.
+the ASM1153 chipset which is reported to work well with Linux (cf. [this thread](https://github.com/raspberrypi/linux/issues/3070)).
